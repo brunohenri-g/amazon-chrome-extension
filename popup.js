@@ -15,19 +15,23 @@ changeColor.addEventListener("click", async () => {
 
 function filterAllDroppedPrices() {
     chrome.storage.sync.get("color", ({ color }) => {
-        const allDropPrices = [...document.querySelectorAll("#g-items li.g-item-sortable .itemPriceDrop")];
+        const allDropPrices = [...document.querySelectorAll("#g-items li.g-item-sortable div.itemPriceDrop")];
         let allPromotions = [];
 
         for (let i = 0; i < allDropPrices.length; i++) {
-            let spanDropPrice = allDropPrices[i].querySelector('[id^=itemPriceDrop_]');
+            const dropPriceElement = allDropPrices[i];
+
+            const spanDropPrice = dropPriceElement.querySelector('[id^=itemPriceDrop_]');
+            const nameOfProduct = dropPriceElement.closest('div.a-column').querySelector('div > h2 > a').innerText;
+            const currentPrice = dropPriceElement.closest('div.a-column').querySelector('span.a-offscreen').innerText.match(/[\d]*,[\d]*/)[0];
+            const previousPrice = dropPriceElement.innerText.match(/[\d]*,[\d]*/)[0];
 
             if (!spanDropPrice.innerText.startsWith('Queda')) {
                 const discount = spanDropPrice.innerText.trim().replace(/^(\D*)/, '');
-
-                allPromotions.push(discount);
+                allPromotions.push({ name: nameOfProduct, currentPrice, previousPrice, discount });
             }
         }
 
-        console.log(allPromotions.sort((a, b) => { return b.match(/\d+/) - a.match(/\d+/); }));
+        console.log(allPromotions.sort((a, b) => { return b.discount.match(/\d+/) - a.discount.match(/\d+/); }));
     });
 }
