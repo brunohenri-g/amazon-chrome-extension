@@ -1,34 +1,28 @@
-let priceListDiv = document.getElementById("price-list");
+let priceListTable = document.getElementById("price-table");
 
-// // Reacts to a button click by marking the selected button and saving
-// // the selection
-// function handleButtonClick(event) {
-//     // Remove styling from the previously selected color
-//     let current = event.target.parentElement.querySelector(
-//         `.${selectedClassName}`
-//     );
-//     if (current && current !== event.target) {
-//         current.classList.remove(selectedClassName);
-//     }
-
-//     // Mark the button as selected
-//     let color = event.target.dataset.color;
-//     event.target.classList.add(selectedClassName);
-//     chrome.storage.sync.set({ color });
-// }
-
-// Add a button to the page for each supplied color
-function constructOptions() {
+function buildProductsTable() {
     chrome.storage.sync.get("mainStorage", (data) => {
+        console.log(data);
         let prices = data.mainStorage.hasOwnProperty('prices') ? data.mainStorage.prices : [];
 
         for (let item of prices) {
-            let itemList = document.createElement("p");
-            itemList.innerText = item.name;
-            priceListDiv.appendChild(itemList);
+            let productRow = document.createElement('tr');
+
+            appendCellToTableRow(item.name, productRow);
+            appendCellToTableRow(item.currentPrice, productRow);
+            appendCellToTableRow(item.previousPrice, productRow);
+            appendCellToTableRow('Em Desenvolvimento', productRow);
+            appendCellToTableRow(item.discount, productRow);
+
+            priceListTable.append(productRow);
         }
     });
 }
 
-// Initialize the page by constructing the color options
-constructOptions();
+function appendCellToTableRow(value, tableRow) {
+    let cell = document.createElement('td');
+    cell.innerText = value;
+    tableRow.append(cell);
+}
+
+buildProductsTable();

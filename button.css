@@ -2,6 +2,16 @@ button {
     margin: 10px;
     font-size: 11px;
     width: 100px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
     cursor: pointer;
+}
+
+table td,
+table th {
+    padding: 10px;
+    text-align: center;
+}
+
+table tr td:first-child, table thead th:first-child {
+    text-align: left !important;
 }
