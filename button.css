@@ -6,12 +6,20 @@ button {
     cursor: pointer;
 }
 
+#clearStorageButton {
+    border-radius: 2px;
+    border: 1px rgb(118, 118, 118) solid;
+    padding: 2px 6px;
+    background-color: #ecb0b6;
+}
+
 table td,
 table th {
     padding: 10px;
     text-align: center;
 }
 
-table tr td:first-child, table thead th:first-child {
+table tr td:first-child,
+table thead th:first-child {
     text-align: left !important;
 }
