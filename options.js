@@ -9,11 +9,12 @@ function buildProductsTable() {
             let productRow = document.createElement('tr');
 
             appendCellToTableRow(item.name, productRow);
-            appendCellToTableRow(item.currentPrice, productRow);
-            appendCellToTableRow(item.previousPrice, productRow);
-            appendCellToTableRow(getLowestPrice(item), productRow);
-            appendCellToTableRow(getHighestPrice(item), productRow);
+            appendCellToTableRow(item.currentPrice.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}), productRow);
+            appendCellToTableRow(item.previousPrice.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}), productRow);
+            appendCellToTableRow(getLowestPrice(item).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}), productRow);
+            appendCellToTableRow(getHighestPrice(item).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}), productRow);
             appendCellToTableRow(item.discount, productRow);
+            appendCellToTableRow(item.history.length, productRow);
 
             priceListTable.append(productRow);
         }
