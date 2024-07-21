@@ -1,7 +1,7 @@
 let priceListTable = document.getElementById("price-table");
 
 function buildProductsTable() {
-    chrome.storage.sync.get("mainStorage", (data) => {
+    chrome.storage.local.get("mainStorage", (data) => {
         let prices = (data.mainStorage?.hasOwnProperty('prices') ? data.mainStorage.prices : []).sort((a, b) => { return b.discount.match(/\d+/) - a.discount.match(/\d+/); });
 
         for (let item of prices) {
@@ -28,12 +28,12 @@ function createDeleteLink(itemName) {
     deleteLink.appendChild(linkText);
 
     deleteLink.addEventListener("click", () => {
-        chrome.storage.sync.get("mainStorage", (data) => {
+        chrome.storage.local.get("mainStorage", (data) => {
             let prices = data.mainStorage?.prices ?? [];
 
             prices = prices.filter(a => a.name != itemName);
 
-            chrome.storage.sync.set({ mainStorage: { prices } });
+            chrome.storage.local.set({ mainStorage: { prices } });
 
             window.location.reload();
         });
@@ -92,5 +92,5 @@ buildProductsTable();
 //     // Mark the button as selected
 //     let color = event.target.dataset.color;
 //     event.target.classList.add(selectedClassName);
-//     chrome.storage.sync.set({ color });
+//     chrome.storage.local.set({ color });
 // }

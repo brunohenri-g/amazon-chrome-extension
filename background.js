@@ -1,3 +1,3 @@
 chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.sync.set({ mainStorage: {} });
+    chrome.storage.local.set({ mainStorage: {} });
 });

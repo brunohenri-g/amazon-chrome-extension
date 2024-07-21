@@ -11,12 +11,12 @@ refreshPriceButton.addEventListener("click", async () => {
 });
 
 clearStorageButton.addEventListener("click", () => {
-    chrome.storage.sync.clear();
-    chrome.storage.sync.set({ mainStorage: {} });
+    chrome.storage.local.clear();
+    chrome.storage.local.set({ mainStorage: {} });
 });
 
 function filterAllDroppedPrices() {
-    chrome.storage.sync.get("mainStorage", (data) => {
+    chrome.storage.local.get("mainStorage", (data) => {
         let prices = data.mainStorage?.prices ?? [];
 
         const allDropPrices = [...document.querySelectorAll("#g-items li.g-item-sortable div.itemPriceDrop")];
@@ -47,7 +47,7 @@ function filterAllDroppedPrices() {
                 }
             }
         }
-        chrome.storage.sync.set({ mainStorage: { prices } });
+        chrome.storage.local.set({ mainStorage: { prices } });
     });
 
 }
